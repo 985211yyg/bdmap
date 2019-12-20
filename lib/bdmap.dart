@@ -10,4 +10,8 @@ class Bdmap {
     final String version = await _channel.invokeMethod('getPlatformVersion');
     return version;
   }
+
+  static void init() async {
+    await _channel.invokeMethod('init');
+  }
 }
