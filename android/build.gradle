@@ -1,0 +1,66 @@
+group 'com.reemii.bdmap'
+version '1.0'
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.0'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 16
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+
+    //指定jdk版本
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+
+
+dependencies {
+    api fileTree(include: ['*.jar'], excludes: ['lbsCoreSDK.jar'], dir: 'libs')
+    api 'androidx.appcompat:appcompat:1.2.0-alpha01'
+    api 'com.blankj:utilcodex:1.26.0'
+    api files('libs/BaiduLBS_Android.jar')
+    api files('libs/BaiduTraceSDK_v3_1_4.jar')
+    api files('libs/bos-android-sdk-1.0.3.jar')
+    api 'com.rxjava.rxhttp:rxhttp:1.3.4'
+    annotationProcessor 'com.rxjava.rxhttp:rxhttp-compiler:1.3.4' //注解处理器，生成RxHttp类
+}
