@@ -35,4 +35,15 @@ public class RMLocation {
     public void setDirection(float direction) {
         this.direction = direction;
     }
+
+    @Override
+    public String toString() {
+        return "RMLocation{" +
+                "lat=" + lat +
+                ", lng=" + lng +
+                ", direction=" + direction +
+                ", alt=" + alt +
+                ", speed=" + speed +
+                '}';
+    }
 }

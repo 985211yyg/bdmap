@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:html';
 
 import 'package:flutter/services.dart';
 
@@ -11,7 +12,8 @@ class Bdmap {
     return version;
   }
 
-  static void init() async {
-    await _channel.invokeMethod('init');
+  static void init(String token) async {
+    await _channel.invokeMethod('init', {'token': token});
   }
+
 }

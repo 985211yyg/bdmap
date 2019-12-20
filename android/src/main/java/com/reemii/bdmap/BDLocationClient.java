@@ -14,6 +14,10 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import rxhttp.wrapper.param.RxHttp;
+
 
 /**
  * Created by yyg on 2018/10/19 ,10:29
@@ -33,6 +37,7 @@ public class BDLocationClient {
     }
 
     public static void init(Context context) {
+        Log.e(TAG, "init: ");
         if (instance == null) {
             synchronized (BDLocationClient.class) {
                 instance = new BDLocationClient(context);
@@ -153,6 +158,30 @@ public class BDLocationClient {
             params.put("direction", rmLocation.direction);
             params.put("alt", rmLocation.alt);
             params.put("speed", rmLocation.speed);
+
+            RxHttp.postJson("/staff/staff/position", params)
+                    .asObject(JSONObject.class)
+                    .subscribe(new Observer<JSONObject>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(JSONObject jsonObject) {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
 
 
         }
