@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/bdmap.iml" filepath="$PROJECT_DIR$/.idea/bdmap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bdmap.iml" filepath="$PROJECT_DIR$/bdmap.iml" />
     </modules>
   </component>
 </project>

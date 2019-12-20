@@ -25,8 +25,12 @@ public class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler {
     public void onMethodCall(MethodCall call, MethodChannel.Result result) {
         if (call.method.equals("getPlatformVersion")) {
             result.success("Android " + android.os.Build.VERSION.RELEASE);
+        } else if (call.method.equals("init")) {
+            //实例化
+            BDLocationClient.init(mContext);
         } else {
             result.notImplemented();
+
         }
     }
 }
