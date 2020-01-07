@@ -50,7 +50,7 @@ public class BDLocationClient {
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
         option.setCoorType("bd09ll");  //坐标类型
-        option.setScanSpan(4000); //定位时间间隔
+        option.setScanSpan(6000); //定位时间间隔
         option.setOpenGps(true); //使用gps
         option.setLocationNotify(false); //可选，设置是否当GPS有效时按照1S/1次频率输出GPS结果，默认false
         option.setIgnoreKillProcess(false);  //是否杀死服务
@@ -67,6 +67,7 @@ public class BDLocationClient {
         Log.e(TAG, "register: ");
         //定位回掉
         mLocationClient.registerLocationListener(new BDAbstractLocationListener() {
+
             @Override
             public void onReceiveLocation(BDLocation bdLocation) {
                 RMLocation rmLocation = new RMLocation();
@@ -75,9 +76,9 @@ public class BDLocationClient {
                 rmLocation.direction = bdLocation.getDirection();
                 int errorCode = bdLocation.getLocType();
                 if (locationCallBack != null
-                        && rmLocation != null
                         && (errorCode == 61 || errorCode == 66 || errorCode == 161)) {
                     locationCallBack.onLocation(rmLocation);
+
                 }
             }
         });
@@ -143,47 +144,9 @@ public class BDLocationClient {
                 rmLocation.direction = bdLocation.getDirection();
                 rmLocation.alt = (float) bdLocation.getAltitude();
                 rmLocation.speed = bdLocation.getSpeed();
-                //存储位置
-//                LocalStorage.getInstance().putLocation(rmLocation);
                 //上传位置
-                postLocation(rmLocation);
+//                postLocation(rmLocation);
             }
-        }
-
-        //上传位置
-        public void postLocation(RMLocation rmLocation) {
-            Map<String, Object> params = new HashMap<>();
-            params.put("lat", rmLocation.lat);
-            params.put("lng", rmLocation.lng);
-            params.put("direction", rmLocation.direction);
-            params.put("alt", rmLocation.alt);
-            params.put("speed", rmLocation.speed);
-
-            RxHttp.postJson("/staff/staff/position", params)
-                    .asObject(JSONObject.class)
-                    .subscribe(new Observer<JSONObject>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
-
-                        }
-
-                        @Override
-                        public void onNext(JSONObject jsonObject) {
-
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-
-                        }
-
-                        @Override
-                        public void onComplete() {
-
-                        }
-                    });
-
-
         }
 
     }
